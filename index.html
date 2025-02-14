@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rayan Tech | Rayan Ali</title>
+  <!-- Using Montserrat for a modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Reset and Transitions */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
+      background: #fafafa;
+      perspective: 1200px;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* Navigation */
+    nav {
+      background: #002d72;
+      color: #fff;
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    nav .container {
+      width: 90%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav .brand {
+      font-size: 1.9rem;
+      font-weight: 700;
+    }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { margin-left: 20px; }
+    nav ul li a {
+      color: #fff;
+      font-weight: 600;
+    }
+    nav ul li a:hover { color: #a8d0e6; }
+
+    /* Hero Section with Enhanced 3D Parallax Effect */
+    .hero {
+      position: relative;
+      background: url('https://source.unsplash.com/1600x900/?technology,3d,abstract') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 45, 114, 0.65);
+      z-index: 1;
+      transform: translateZ(-50px);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      transform: translateZ(0);
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.5rem; margin-bottom: 2rem; }
+    .cta-button {
+      background: #28a745;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .cta-button:hover { background: #218838; transform: scale(1.05); }
+
+    /* Section Titles */
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.4rem;
+      color: #002d72;
+      position: relative;
+    }
+    .section-title::after {
+      content: "";
+      width: 60px;
+      height: 3px;
+      background: #28a745;
+      display: block;
+      margin: 0.5rem auto 0;
+    }
+
+    /* About Section */
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      font-size: 1.15rem;
+      padding: 0 1rem;
+    }
+
+    /* Services Section */
+    .services-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .service-item {
+      flex: 1 1 300px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transform: translateZ(30px);
+    }
+    .service-item:hover {
+      transform: translateY(-8px) translateZ(40px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+    .service-item h3 { color: #002d72; margin-bottom: 1rem; }
+    .service-item p { font-size: 1rem; }
+
+    /* Additional Service: Web Development (highlighted border) */
+    .service-item.webdev { border-top: 4px solid #ff6f61; }
+
+    /* Portfolio Section with 3D Flip Cards */
+    .portfolio-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      perspective: 1000px;
+    }
+    .portfolio-item {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 66.66%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
+    .portfolio-item:hover { transform: rotateY(10deg); }
+    .portfolio-item .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .portfolio-item img, .portfolio-item .content {
+      backface-visibility: hidden;
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .portfolio-item .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,45,114,0.85);
+      color: #fff;
+      padding: 1rem;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .portfolio-item .content h3 { margin-bottom: 0.5rem; }
+    .portfolio-item .content p { font-size: 0.95rem; }
+
+    /* Case Studies Section with Flip Cards */
+    .case-studies-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      perspective: 1200px;
+    }
+    .case-study {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 70%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
+    .case-study:hover { transform: rotateY(180deg); }
+    .case-study .flip-card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .case-study .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+    }
+    .case-study .face.front {
+      background: url('https://source.unsplash.com/400x300/?team,office') no-repeat center center/cover;
+    }
+    .case-study .face.back {
+      background: #002d72;
+      color: #fff;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      text-align: center;
+    }
+    .case-study .face.back h3 { margin-bottom: 0.5rem; }
+    .case-study .face.back p { font-size: 0.9rem; }
+
+    /* Email Subscription Section */
+    .subscribe-section {
+      background: #002d72;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .subscribe-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .subscribe-section input[type="email"] {
+      padding: 0.8rem;
+      width: 250px;
+      border: none;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+    .subscribe-section button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      background: #28a745;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .subscribe-section button:hover { background: #218838; }
+
+    /* Contact Section */
+    .contact-info { text-align: center; }
+    .contact-info p { margin: 0.5rem 0; font-size: 1.1rem; }
+
+    /* Footer */
+    footer {
+      background: #f4f4f4;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 1100;
+    }
+    .whatsapp-btn img { width: 35px; height: 35px; }
+
+    /* Chatbot Widget */
+    #chatbot {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      max-height: 450px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      z-index: 1100;
+    }
+    #chatbot header {
+      background: #002d72;
+      color: #fff;
+      padding: 0.8rem;
+      text-align: center;
+      font-weight: 600;
+    }
+    #chatbot .messages {
+      flex: 1;
+      padding: 0.8rem;
+      overflow-y: auto;
+      background: #f9f9f9;
+    }
+    #chatbot .input-box {
+      display: flex;
+      border-top: 1px solid #eee;
+    }
+    #chatbot .input-box input {
+      flex: 1;
+      padding: 0.8rem;
+      border: none;
+    }
+    #chatbot .input-box button {
+      padding: 0.8rem;
+      background: #28a745;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+    /* Chatbot Toggle Button */
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: #002d72;
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1100;
+    }
+    .chatbot-toggle img { width: 30px; height: 30px; }
+    
+    /* Global Transitions */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="brand">Rayan Tech</div>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Projects</a></li>
+        <li><a href="#casestudies">Case Studies</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Rayan Tech</h1>
+      <p>Innovative chatbot, LinkedIn optimization, web development and digital solutions for modern businesses.</p>
+      <a href="#contact" class="cta-button">Get in Touch</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title">About Rayan Ali</h2>
+    <p>
+      I’m Rayan Ali, founder of Rayan Tech. I specialize in developing interactive, AI-driven chatbots, optimizing LinkedIn profiles, and building responsive, modern websites that drive business growth. My approach combines technology, creativity, and cutting-edge design to deliver impactful digital solutions.
+    </p>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services">
+    <h2 class="section-title">Our Services</h2>
+    <div class="services-container">
+      <div class="service-item">
+        <h3>Customized Chatbot Development</h3>
+        <p>Design and develop intelligent chatbots that enhance customer engagement and streamline communication.</p>
+      </div>
+      <div class="service-item">
+        <h3>LinkedIn Profile Optimization</h3>
+        <p>Create compelling, SEO-optimized LinkedIn profiles to elevate your professional presence.</p>
+      </div>
+      <div class="service-item webdev">
+        <h3>Web Development Services</h3>
+        <p>Build modern, responsive websites that deliver seamless user experiences and drive conversions.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <h2 class="section-title">Projects & Demos</h2>
+    <div class="portfolio-container">
+      <div class="portfolio-item">
+        <div class="card">
+          <img src="https://source.unsplash.com/400x250/?chatbot,interface" alt="Chatbot Platform">
+          <div class="content">
+            <h3>ChatProfolio</h3>
+            <p>An AI-powered chatbot platform integrated with interactive portfolio features.</p>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <div class="card">
+          <img src="https://source.unsplash.com/400x250/?linkedin,profile" alt="LinkedIn Optimization">
+          <div class="content">
+            <h3>LinkedIn Boost</h3>
+            <p>A comprehensive LinkedIn profile overhaul that significantly improves professional visibility.</p>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <div class="card">
+          <img src="https://source.unsplash.com/400x250/?webdevelopment,design" alt="Web Development">
+          <div class="content">
+            <h3>Web Innovate</h3>
+            <p>Responsive web design and development that drives business performance and growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Case Studies Section -->
+  <section id="casestudies">
+    <h2 class="section-title">Case Studies</h2>
+    <div class="case-studies-container">
+      <div class="case-study">
+        <div class="flip-card">
+          <div class="face front" style="background: url('https://source.unsplash.com/400x300/?team,office') no-repeat center center/cover;"></div>
+          <div class="face back">
+            <h3>Chatbot Integration</h3>
+            <p>Integrated a chatbot that boosted customer engagement by 45% for an e-commerce client.</p>
+          </div>
+        </div>
+      </div>
+      <div class="case-study">
+        <div class="flip-card">
+          <div class="face front" style="background: url('https://source.unsplash.com/400x300/?professional,profile') no-repeat center center/cover;"></div>
+          <div class="face back">
+            <h3>LinkedIn Revamp</h3>
+            <p>Optimized LinkedIn profiles resulting in a 60% increase in connection requests.</p>
+          </div>
+        </div>
+      </div>
+      <div class="case-study">
+        <div class="flip-card">
+          <div class="face front" style="background: url('https://source.unsplash.com/400x300/?webdesign,developer') no-repeat center center/cover;"></div>
+          <div class="face back">
+            <h3>Web Innovate</h3>
+            <p>Developed a modern website that increased lead generation by 50%.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Email Subscription Section -->
+  <section id="subscribe" class="subscribe-section">
+    <h2>Stay Updated</h2>
+    <p>Subscribe to our newsletter for the latest news and service updates.</p>
+    <form onsubmit="alert('Thank you for subscribing!'); return false;">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-info">
+      <p><strong>Email:</strong> <a href="mailto:rayantech133@gmail.com">rayantech133@gmail.com</a></p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/923396412080" target="_blank">+923396412080</a></p>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Rayan Tech. All rights reserved.</p>
+  </footer>
+  
+  <!-- Floating WhatsApp Button -->
+  <div class="whatsapp-btn" onclick="window.open('https://wa.me/923396412080', '_blank');">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </div>
+  
+  <!-- Chatbot Toggle Button -->
+  <div class="chatbot-toggle" onclick="toggleChatbot()">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Chat_icon.svg" alt="Chat">
+  </div>
+  
+  <!-- Chatbot Widget -->
+  <div id="chatbot">
+    <header>How can we help you?</header>
+    <div class="messages" id="chatMessages">
+      <p><em>Hello! Ask about our services, appointments, orders, or contact details.</em></p>
+    </div>
+    <div class="input-box">
+      <input type="text" id="chatInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+  
+  <!-- Smooth Scroll & Chatbot Script -->
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e){
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    
+    // Chatbot toggle function
+    function toggleChatbot() {
+      const bot = document.getElementById('chatbot');
+      bot.style.display = (bot.style.display === 'flex') ? 'none' : 'flex';
+    }
+    
+    // Simple Chatbot simulation
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      
+      const messagesDiv = document.getElementById('chatMessages');
+      messagesDiv.innerHTML += `<p><strong>You:</strong> ${msg}</p>`;
+      
+      let response = "";
+      if (msg.toLowerCase().includes("services")) {
+        response = "We offer customized chatbot development, LinkedIn profile optimization, web development, and digital solutions.";
+      } else if (msg.toLowerCase().includes("contact")) {
+        response = "You can reach us at rayantech133@gmail.com or via WhatsApp at +923396412080.";
+      } else if (msg.toLowerCase().includes("appointment")) {
+        response = "To book an appointment, please use our contact form or call us directly.";
+      } else if (msg.toLowerCase().includes("order")) {
+        response = "We can process service orders online. Please specify your requirements.";
+      } else {
+        response = "I’m here to help! Ask me about our services, appointments, orders, or contact details.";
+      }
+      
+      setTimeout(() => {
+        messagesDiv.innerHTML += `<p><strong>ChatBot:</strong> ${response}</p>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }, 600);
+      
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
